@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Create New Playlist</h1>
+
+<div class="section">
+    <h2 class="section-header">Playlist Details</h2>
+    <form method="POST" action="{{ url_for('create_playlist') }}">
+        <div>
+            <label for="name">Playlist Name</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div>
+            <label for="user_id">Owner</label>
+            <select id="user_id" name="user_id" required>
+                {% for user in users %}
+                <option value="{{ user.user_id }}">{{ user.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="button primary">Create Playlist</button>
+        <a href="{{ url_for('playlists') }}" class="button">Cancel</a>
+    </form>
+</div>
+{% endblock %}

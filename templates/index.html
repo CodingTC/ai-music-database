@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Welcome to Thematic Music Explorer</h1>
+
+<div style="display: flex; flex-wrap: wrap;">
+    <div style="flex: 2; margin-right: 20px;">
+        <div class="section">
+            <h2 class="section-header">Explore Songs</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Artist</th>
+                        <th>Cluster</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for song in songs %}
+                    <tr>
+                        <td>{{ song.title }}</td>
+                        <td>{{ song.artist }}</td>
+                        <td>{{ song.cluster_id }}</td>
+                        <td>
+                            <a href="{{ url_for('song_detail', song_id=song.song_id) }}" class="button primary">View</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div style="flex: 1;">
+        <div class="section">
+            <h2 class="section-header">Playlists</h2>
+            <ul>
+                {% for playlist in playlists %}
+                <li style="margin-bottom: 10px;">
+                    {{ playlist.name }}
+                    <a href="{{ url_for('playlist_detail', playlist_id=playlist.playlist_id) }}" class="button primary">View</a>
+                </li>
+                {% endfor %}
+            </ul>
+            <div>
+                <a href="{{ url_for('playlists') }}" class="button">Create New Playlist</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

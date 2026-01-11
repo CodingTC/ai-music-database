@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Search Results for "{{ query }}"</h1>
+
+{% if results %}
+<div class="section">
+    <h2 class="section-header">{{ results|length }} Results Found</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Artist</th>
+                <th>Cluster</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for song in results %}
+            <tr>
+                <td>{{ song.title }}</td>
+                <td>{{ song.artist }}</td>
+                <td>{{ song.cluster_id }}</td>
+                <td>
+                    <a href="{{ url_for('song_detail', song_id=song.song_id) }}" class="button primary">View</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="alert">
+    No results found for "{{ query }}". Try a different search term.
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>AI-Powered Clustering Music Recommendation</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <div class="key-signature">TC</div>
+            <li><a href="/">Clustered Music Explorer</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/playlists">Playlists</a></li>
+            <li><a href="/users">Users</a></li>
+        </ul>
+        <form action="/search" method="get" style="margin-top: 10px;">
+            <input type="search" name="query" placeholder="Search for songs or artists">
+            <button type="submit">Search</button>
+        </form>
+    </nav>
+    
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </div>
+    
+    <footer>
+        <p>AI-Powered Clustering Music Recommendation System</p>
+    </footer>
+    
+    <script>
+        // Simple JavaScript to show/hide modals
+        function showModal(id) {
+            document.getElementById(id).style.display = 'block';
+        }
+        
+        function hideModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+    </script>
+</body>
+</html>
