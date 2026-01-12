@@ -11,11 +11,11 @@ app.secret_key = os.environ.get('SECRET_KEY', 'dev_secret')
 # Database connection
 def get_db_connection():
     conn = psycopg2.connect(
-        dbname=os.environ.get("DB_NAME", "music_recommendation"),
-        user=os.environ.get("DB_USER", "tdcooley"),
-        password=os.environ.get("DB_PASSWORD", "appledogfish"),
-        host=os.environ.get("DB_HOST", "localhost"),
-        port=os.environ.get("DB_PORT", "5432")
+        dbname=os.environ["DB_NAME"],
+        user=os.environ["DB_USER"],
+        password=os.environ["DB_PASSWORD"],
+        host=os.environ["DB_HOST"],
+        port=int(os.environ.get("DB_PORT", 5432))
     )
     conn.cursor_factory = psycopg2.extras.DictCursor
     return conn
@@ -392,6 +392,10 @@ def initialize_database():
     print("Database initialized successfully!")
 
 if __name__ == '__main__':
-    initialize_database()
+
+    if os.environ.get("FLASK_ENV") != "production":
+        initialize_database()
     port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port, debug=True)
+
+    debug = os.environ.get("FLASK_DEBUG", "0") == "1"
+    app.run(host="0.0.0.0", port=port, debug=debug)
