@@ -15,7 +15,7 @@ def get_db_connection():
         user=os.environ["DB_USER"],
         password=os.environ["DB_PASSWORD"],
         host=os.environ["DB_HOST"],
-        port=int(os.environ.get("DB_PORT", 5432))
+        port=int(os.environ.get("DB_PORT", 5432)),
         sslmode="require"
     )
     conn.cursor_factory = psycopg2.extras.DictCursor
